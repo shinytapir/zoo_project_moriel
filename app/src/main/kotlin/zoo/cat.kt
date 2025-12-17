@@ -1,12 +1,12 @@
 package zoo
 
 class Cat : Animal {
-    override fun print_your_name():String {
+    override fun printYournName():String {
         return "Cat"
 
  
     }
-        override fun print_your_sound():String{
+        override fun printYourSound():String{
         return "Miao"
     
     }

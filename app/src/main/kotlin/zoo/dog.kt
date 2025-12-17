@@ -1,9 +1,9 @@
 package zoo
 class Dog : Animal {
-    override fun print_your_name() :String{
+    override fun printYournName() :String{
      return "Dog"
     }
-        override fun print_your_sound():String {
+        override fun printYourSound():String {
         return "How"
     }
 

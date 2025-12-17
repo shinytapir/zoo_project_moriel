@@ -41,8 +41,8 @@ fun main(args: Array<String>) {
 
     for (animalName in animalNames) {
         try {
-            val animal = AnimalFactory.createAnimal(animalName)
-          println("%-10s %-10s".format(animal.print_your_name(), animal.print_your_sound()))
+            val animal = AnimalFactory.createAnimal(animalName.trim().lowercase())
+          println("%-10s %-10s".format(animal.printYournName(), animal.printYourSound()))
         } catch (e: IllegalArgumentException) {
             System.err.println(e.message)
         }
