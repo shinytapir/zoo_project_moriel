@@ -1,11 +1,10 @@
-package Zoo
-
-class Duck : animal {
+package zoo
+class Dog : Animal {
     override fun print_your_name() {
-     println("im a duck")
+     println("Dog")
     }
         override fun print_your_sound() {
-        println("i make a mew")
+        println("How")
     }
 
 }

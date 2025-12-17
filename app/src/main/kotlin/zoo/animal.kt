@@ -1,4 +1,4 @@
-package Zoo
+package zoo
 
 interface Animal {
     fun print_your_name()
