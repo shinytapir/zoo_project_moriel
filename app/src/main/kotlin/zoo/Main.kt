@@ -3,20 +3,11 @@ package zoo
 import java.io.File
 import java.io.IOException
 
-fun main(args: Array<String>) {
-
-    if (args.isEmpty()) {
-        System.err.println("Usage: <program> <filename>")
-        return
-    }
-
-    val fileName = args[0]
-
+fun readAnimalFile(fileName: String): List<String> {
     val fileContent = try {
         File(fileName).readText()
     } catch (e: IOException) {
-        System.err.println("Could not find file '$fileName': ${e.message}")
-        return
+        throw IOException("Could not read file '$fileName': ${e.message}")
     }
 
     val animalNames = fileContent
@@ -24,15 +15,34 @@ fun main(args: Array<String>) {
         .filter { it.isNotBlank() }
 
     if (animalNames.isEmpty()) {
-        System.err.println("No animal names found in file")
+        throw IllegalArgumentException("No animal names found in file '$fileName'")
+    }
+
+    return animalNames
+}
+
+fun main(args: Array<String>) {
+    if (args.isEmpty()) {
+        System.err.println("Please enter a file")
         return
     }
+
+    val fileName = args[0]
+
+    val animalNames = try {
+        readAnimalFile(fileName)
+    } catch (e: Exception) {
+        System.err.println(e.message)
+        return
+    }
+
+    println("Animal  Sound")
+    println("-----      -----")
 
     for (animalName in animalNames) {
         try {
             val animal = AnimalFactory.createAnimal(animalName)
-            animal.print_your_name()
-            animal.print_your_sound()
+          println("%-10s %-10s".format(animal.print_your_name(), animal.print_your_sound()))
         } catch (e: IllegalArgumentException) {
             System.err.println(e.message)
         }

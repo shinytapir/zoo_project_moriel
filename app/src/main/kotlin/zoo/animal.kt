@@ -1,6 +1,6 @@
 package zoo
 
 interface Animal {
-    fun print_your_name()
-    fun print_your_sound()
+    fun print_your_name(): String
+    fun print_your_sound(): String
 }
