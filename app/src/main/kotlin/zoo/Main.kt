@@ -10,9 +10,9 @@ fun readFromFile(fileName: String): List<String> {
         throw IOException("Could not read file '$fileName': ${e.message}")
 
     }
-
+    val removeWhiteSpace="\\s+"
     val animalNames = fileContent
-        .split("\\s+".toRegex())
+        .split(removeWhiteSpace.toRegex())
         .filter {it.isNotBlank() }
 
     if (animalNames.isEmpty()) {
@@ -22,36 +22,41 @@ fun readFromFile(fileName: String): List<String> {
     return animalNames
 }
 
-fun printAnimals(animalNames:List<String>)
-{
+fun printAnimals(animalNames: List<String>) {
     println("Animal  Sound")
     println("-----      -----")
-    for (animalName in animalNames) {
-    val animal = try {
-        AnimalFactory.createAnimal(animalName.trim().lowercase())
-    } catch (e: IllegalArgumentException) {
-        System.err.println(e.message)
-        continue
-    }
 
-    animal.printYourName()
+    animalNames.forEach { name ->
+        val trimmed = name.trim().lowercase()
+        val animal = try {
+            AnimalFactory.createAnimal(trimmed)
+        } catch (e: IllegalArgumentException) {
+            System.err.println(e.message ?: "Unknown animal: '$name'")
+            null
+        }
+
+    animal?.let {
+    it.printYourName()
     print("    ")
-    animal.printYourSound()
+    it.printYourSound()
     println()
 }
 
-
-
-
+    }
 }
+
+
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
         System.err.println("Please enter a file")
         return
     }
-
     val fileName = args[0]
+    AnimalFactory.load(args[1])
+
+
+
 
     val animalNames = try {
         readFromFile(fileName)
