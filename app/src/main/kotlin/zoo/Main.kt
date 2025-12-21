@@ -3,22 +3,46 @@ package zoo
 import java.io.File
 import java.io.IOException
 
-fun readAnimalFile(fileName: String): List<String> {
+fun readFromFile(fileName: String): List<String> {
     val fileContent = try {
         File(fileName).readText()
     } catch (e: IOException) {
         throw IOException("Could not read file '$fileName': ${e.message}")
+
     }
 
     val animalNames = fileContent
         .split("\\s+".toRegex())
-        .filter { it.isNotBlank() }
+        .filter {it.isNotBlank() }
 
     if (animalNames.isEmpty()) {
         throw IllegalArgumentException("No animal names found in file '$fileName'")
     }
 
     return animalNames
+}
+
+fun printAnimals(animalNames:List<String>)
+{
+    println("Animal  Sound")
+    println("-----      -----")
+    for (animalName in animalNames) {
+    val animal = try {
+        AnimalFactory.createAnimal(animalName.trim().lowercase())
+    } catch (e: IllegalArgumentException) {
+        System.err.println(e.message)
+        continue
+    }
+
+    animal.printYourName()
+    print("    ")
+    animal.printYourSound()
+    println()
+}
+
+
+
+
 }
 
 fun main(args: Array<String>) {
@@ -30,21 +54,13 @@ fun main(args: Array<String>) {
     val fileName = args[0]
 
     val animalNames = try {
-        readAnimalFile(fileName)
+        readFromFile(fileName)
     } catch (e: Exception) {
         System.err.println(e.message)
         return
     }
+    printAnimals(animalNames)
 
-    println("Animal  Sound")
-    println("-----      -----")
 
-    for (animalName in animalNames) {
-        try {
-            val animal = AnimalFactory.createAnimal(animalName.trim().lowercase())
-          println("%-10s %-10s".format(animal.printYournName(), animal.printYourSound()))
-        } catch (e: IllegalArgumentException) {
-            System.err.println(e.message)
-        }
-    }
+
 }

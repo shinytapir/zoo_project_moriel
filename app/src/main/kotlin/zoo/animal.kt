@@ -1,6 +1,6 @@
 package zoo
 
-interface Animal {
-    fun printYournName(): String
-    fun printYourSound(): String
+abstract class Animal {
+   abstract fun printYourName()
+   abstract fun printYourSound()
 }
