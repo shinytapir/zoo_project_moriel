@@ -4,23 +4,13 @@ import java.io.File
 import java.io.IOException
 
 fun readFromFile(fileName: String): List<String> {
-    val fileContent = try {
-        File(fileName).readText()
-    } catch (e: IOException) {
-        throw IOException("Could not read file '$fileName': ${e.message}")
-
+    val fileContent: List<String> =File(fileName).useLines { lines ->
+    lines.flatMap { it.split("\\s+".toRegex()) }.filter { it.isNotEmpty() }.toList()
     }
-    val removeWhiteSpace="\\s+"
-    val animalNames = fileContent
-        .split(removeWhiteSpace.toRegex())
-        .filter {it.isNotBlank() }
+    return fileContent
 
-    if (animalNames.isEmpty()) {
-        throw IllegalArgumentException("No animal names found in file '$fileName'")
-    }
-
-    return animalNames
 }
+
 
 fun printAnimals(animalNames: List<String>) {
     println("Animal  Sound")
