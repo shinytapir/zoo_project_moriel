@@ -2,13 +2,40 @@ package zoo
 
 import java.io.File
 import java.io.IOException
+import kotlinx.cli.*
 
-fun readFromFile(fileName: String): List<String> {
-    val fileContent: List<String> =File(fileName).useLines { lines ->
-    lines.flatMap { it.split("\\s+".toRegex()) }.filter { it.isNotEmpty() }.toList()
+
+
+fun parseArguments(arguments: Array<String>): Pair<String, String> {
+    val parser = ArgParser("animals")
+
+    val animalsFile by parser.option(
+        ArgType.String,
+        shortName = "a",
+        description = "Animals file"
+    ).required()
+
+    val propertiesFile by parser.option(
+        ArgType.String,
+        shortName = "p",
+        description = "Properties file"
+    ).required()
+
+    parser.parse(arguments)
+    return animalsFile to propertiesFile
+}
+
+fun parseFile(fileName: String): List<String> {
+    val regex = "\\s+".toRegex()
+
+    val words: List<String> = File(fileName).useLines { lines ->
+        lines
+            .flatMap { line -> line.split(regex) }
+            .filter { it.isNotBlank() }
+            .toList()
     }
-    return fileContent
 
+    return words
 }
 
 
@@ -18,6 +45,7 @@ fun printAnimals(animalNames: List<String>) {
 
     animalNames.forEach { name ->
         val trimmed = name.trim().lowercase()
+
         val animal = try {
             AnimalFactory.createAnimal(trimmed)
         } catch (e: IllegalArgumentException) {
@@ -25,37 +53,22 @@ fun printAnimals(animalNames: List<String>) {
             null
         }
 
-    animal?.let {
-    it.printYourName()
-    print("    ")
-    it.printYourSound()
-    println()
-}
-
+        animal?.let {
+            it.printYourName()
+            print("    ")
+            it.printYourSound()
+            println()
+        }
     }
 }
 
 
 
-fun main(args: Array<String>) {
-    if (args.isEmpty()) {
-        System.err.println("Please enter a file")
-        return
-    }
-    val fileName = args[0]
-    AnimalFactory.load(args[1])
 
-
-
-
-    val animalNames = try {
-        readFromFile(fileName)
-    } catch (e: Exception) {
-        System.err.println(e.message)
-        return
-    }
+fun main(arguments: Array<String>)
+ {
+    val (animalsFile, propertiesFile) = parseArguments(arguments)
+    AnimalFactory.load(propertiesFile)
+    val animalNames =parseFile(animalsFile)
     printAnimals(animalNames)
-
-
-
 }
