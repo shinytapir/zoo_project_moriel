@@ -5,6 +5,6 @@ class Dog : Animal() {
     print("Dog")
     }
     override fun printYourSound(){
-    print(" How")
+    print("How")
     }
 }

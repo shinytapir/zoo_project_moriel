@@ -4,8 +4,12 @@ import java.io.File
 import java.io.IOException
 import kotlinx.cli.*
 
-
-
+/**
+ * Parses the input argments
+ *
+ * @param arguments- input arguments
+ * @return parsed arguments
+ */
 fun parseArguments(arguments: Array<String>): Pair<String, String> {
     val parser = ArgParser("animals")
 
@@ -24,7 +28,12 @@ fun parseArguments(arguments: Array<String>): Pair<String, String> {
     parser.parse(arguments)
     return animalsFile to propertiesFile
 }
-
+/**
+ * Parses a file into a list of words.
+ *
+ * @param fileName Path to the file to read.
+ * @return List of non-blank words from the file.
+ */
 fun parseFile(fileName: String): List<String> {
     val regex = "\\s+".toRegex()
 
@@ -38,7 +47,12 @@ fun parseFile(fileName: String): List<String> {
     return words
 }
 
-
+/**
+ * Prints the list of non blank words as animals
+ *
+ * @param animalNames list of nonblank words.
+ *
+ */
 fun printAnimals(animalNames: List<String>) {
     println("Animal  Sound")
     println("-----      -----")
@@ -63,7 +77,14 @@ fun printAnimals(animalNames: List<String>) {
 }
 
 
-
+/**
+ * Main entry point of the program.
+ *
+ * Reads command-line arguments, loads animal properties, parses the animal file,
+ * and prints each animal and its sound.
+ *
+ * @param arguments Array of command-line arguments.
+ */
 
 fun main(arguments: Array<String>)
  {
