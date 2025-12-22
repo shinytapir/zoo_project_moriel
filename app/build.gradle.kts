@@ -23,6 +23,12 @@ dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+    implementation("com.jakewharton.picnic:picnic:0.5.0")
+
+
+
+
+
     
 }
 

@@ -3,13 +3,14 @@ package zoo
 import java.io.File
 import java.io.IOException
 import kotlinx.cli.*
+import com.jakewharton.picnic.table
+import com.jakewharton.picnic.TextAlignment
+import java.util.Scanner
 
-/**
- * Parses the input argments
- *
- * @param arguments- input arguments
- * @return parsed arguments
- */
+
+
+
+
 fun parseArguments(arguments: Array<String>): Pair<String, String> {
     val parser = ArgParser("animals")
 
@@ -28,37 +29,28 @@ fun parseArguments(arguments: Array<String>): Pair<String, String> {
     parser.parse(arguments)
     return animalsFile to propertiesFile
 }
-/**
- * Parses a file into a list of words.
- *
- * @param fileName Path to the file to read.
- * @return List of non-blank words from the file.
- */
+
+//parse a file to a list of words 
+
 fun parseFile(fileName: String): List<String> {
-    val regex = "\\s+".toRegex()
-
-    val words: List<String> = File(fileName).useLines { lines ->
-        lines
-            .flatMap { line -> line.split(regex) }
-            .filter { it.isNotBlank() }
-            .toList()
+    val words = mutableListOf<String>()
+    Scanner(File(fileName)).use { scanner ->
+        while (scanner.hasNext()) {
+            words.add(scanner.next())
+        }
     }
-
     return words
 }
 
-/**
- * Prints the list of non blank words as animals
- *
- * @param animalNames list of nonblank words.
- *
- */
+
+
+
 fun printAnimals(animalNames: List<String>) {
     println("Animal  Sound")
     println("-----      -----")
 
     animalNames.forEach { name ->
-        val trimmed = name.trim().lowercase()
+        val trimmed = name.lowercase()
 
         val animal = try {
             AnimalFactory.createAnimal(trimmed)
@@ -77,14 +69,7 @@ fun printAnimals(animalNames: List<String>) {
 }
 
 
-/**
- * Main entry point of the program.
- *
- * Reads command-line arguments, loads animal properties, parses the animal file,
- * and prints each animal and its sound.
- *
- * @param arguments Array of command-line arguments.
- */
+
 
 fun main(arguments: Array<String>)
  {

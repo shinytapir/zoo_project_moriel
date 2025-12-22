@@ -1,10 +1,7 @@
 package zoo
 
- class Cat : Animal() {
-    override fun printYourName(){
-    print("Cat")
-    }
+class Cat : Animal() {
     override fun printYourSound(){
     print(" Miao")
-    }
+}
 }

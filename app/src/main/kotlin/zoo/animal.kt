@@ -1,6 +1,8 @@
 package zoo
 
 abstract class Animal {
-   abstract fun printYourName()
+   fun printYourName(){
+   print(this::class.simpleName)
+   }
    abstract fun printYourSound()
 }
