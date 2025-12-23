@@ -11,20 +11,20 @@ abstract class PropertiesFactory<T>:Factory<T>{
     fun loadProperties(propertiesPath: String) {
         FileInputStream(propertiesPath).use { properties.load(it) }
     }
-
-    // template method
     override fun create(key: String): T {
-        return objectFromProperty(key)
+        val className=matchKeytoValue(key)
+        return createObjectFromValue(className)
 
     }
-    
-    // shared step: create the object from properties
-    private fun objectFromProperty(key: String): T{
-        val className = properties.getProperty(key)
+    private fun matchKeytoValue(key: String):String{
+        return  properties.getProperty(key)
             ?: throw IllegalArgumentException(
                 "No mapping for '$key' in properties file"
             )
+    }
+    
 
+    private fun createObjectFromValue(className: String): T{
         try{
             //here could be a problem of the thing is in propertie but its not a thing you can create
            val theobj= Class.forName(className)
@@ -33,7 +33,7 @@ abstract class PropertiesFactory<T>:Factory<T>{
         return theobj
         }
             catch(e:Exception){
-                throw (RuntimeException("Failed to create instance for key '$key'", e))
+                throw (RuntimeException("Failed to create instance for key '$className'", e))
 
             }
       
