@@ -10,7 +10,6 @@ import java.util.Scanner
 
 
 
-
 fun parseArguments(arguments: Array<String>): Pair<String, String> {
     val parser = ArgParser("animals")
 
@@ -46,6 +45,9 @@ fun parseFile(fileName: String): List<String> {
 
 
 fun printAnimals(animalNames: List<String>) {
+  
+
+
     println("Animal  Sound")
     println("-----      -----")
 
@@ -53,9 +55,9 @@ fun printAnimals(animalNames: List<String>) {
         val trimmed = name.lowercase()
 
         val animal = try {
-            AnimalFactory.createAnimal(trimmed)
-        } catch (e: IllegalArgumentException) {
-            System.err.println(e.message ?: "Unknown animal: '$name'")
+            AnimalFactory.create(trimmed)
+        } catch (e: Exception) {
+            System.err.println("$name is not a animal")
             null
         }
 
@@ -74,7 +76,7 @@ fun printAnimals(animalNames: List<String>) {
 fun main(arguments: Array<String>)
  {
     val (animalsFile, propertiesFile) = parseArguments(arguments)
-    AnimalFactory.load(propertiesFile)
+    AnimalFactory.loadProperties(propertiesFile)
     val animalNames =parseFile(animalsFile)
     printAnimals(animalNames)
 }
