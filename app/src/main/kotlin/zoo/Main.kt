@@ -8,9 +8,7 @@ import com.jakewharton.picnic.TextAlignment
 import java.util.Scanner
 
 
-
-
-fun parseArguments(arguments: Array<String>): Pair<String, String> {
+fun parseArguments(arguments: Array<String>):String {
     val parser = ArgParser("animals")
 
     val animalsFile by parser.option(
@@ -19,14 +17,8 @@ fun parseArguments(arguments: Array<String>): Pair<String, String> {
         description = "Animals file"
     ).required()
 
-    val propertiesFile by parser.option(
-        ArgType.String,
-        shortName = "p",
-        description = "Properties file"
-    ).required()
-
     parser.parse(arguments)
-    return animalsFile to propertiesFile
+    return animalsFile
 }
 
 //parse a file to a list of words 
@@ -45,17 +37,15 @@ fun parseFile(fileName: String): List<String> {
 
 
 fun printAnimals(animalNames: List<String>) {
-  
-
 
     println("Animal  Sound")
     println("-----      -----")
 
     animalNames.forEach { name ->
-        val trimmed = name.lowercase()
-
+        
         val animal = try {
-            AnimalFactory.create(trimmed)
+             val animalFactory = AnimalPropertiesFactory(AppConfig.properties)
+            animalFactory.create(name.lowercase())
         } catch (e: Exception) {
             System.err.println("$name is not a animal")
             null
@@ -75,7 +65,8 @@ fun printAnimals(animalNames: List<String>) {
 
 fun main(arguments: Array<String>)
  {
-    val (animalsFile, propertiesFile) = parseArguments(arguments)
-    val animalNames =parseFile(animalsFile)
+        
+    val animalsFile = parseArguments(arguments)
+    val animalNames= parseFile(animalsFile)
     printAnimals(animalNames)
 }

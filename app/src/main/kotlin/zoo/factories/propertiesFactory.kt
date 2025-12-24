@@ -1,17 +1,16 @@
 package zoo
+import java.util.Properties
+import java.io.FileInputStream
 
 abstract class PropertiesFactory<T>(
-    private val expectedType: Class<T>
+    private val expectedType: Class<T>,
+    private val properties: Properties
 ) : Factory<T> {
 
-
-
     override fun create(key: String): T {
-        val className = AppConfig.properties.getProperty(key)
+        val className = properties.getProperty(key)
         val clazz = loadClass(className)
-
         verifyType(clazz, expectedType)
-
         return createObject(clazz)
     }
 
