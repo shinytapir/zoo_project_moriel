@@ -76,7 +76,6 @@ fun printAnimals(animalNames: List<String>) {
 fun main(arguments: Array<String>)
  {
     val (animalsFile, propertiesFile) = parseArguments(arguments)
-    AnimalFactory.loadProperties(propertiesFile)
     val animalNames =parseFile(animalsFile)
     printAnimals(animalNames)
 }

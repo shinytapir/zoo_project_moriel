@@ -4,14 +4,10 @@ abstract class PropertiesFactory<T>(
     private val expectedType: Class<T>
 ) : Factory<T> {
 
-    private val resolver = PropertiesResolver()
 
-    fun loadProperties(propertiesPath: String) {
-        resolver.load(propertiesPath)
-    }
 
     override fun create(key: String): T {
-        val className = resolver.resolve(key)
+        val className = AppConfig.properties.getProperty(key)
         val clazz = loadClass(className)
 
         verifyType(clazz, expectedType)
