@@ -1,5 +1,0 @@
-
-package zoo
-class Car{
-
-}
