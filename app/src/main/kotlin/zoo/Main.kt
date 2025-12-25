@@ -21,7 +21,7 @@ fun parseArguments(arguments: Array<String>):String {
     return animalsFile
 }
 
-//parse a file to a list of words 
+
 
 fun parseFile(fileName: String): List<String> {
     val words = mutableListOf<String>()
@@ -44,7 +44,7 @@ fun printAnimals(animalNames: List<String>) {
     animalNames.forEach { name ->
         
         val animal = try {
-             val animalFactory = AnimalPropertiesFactory(AppConfig.properties)
+            val animalFactory = PropertiesFactory<Animal>(AppConfig.properties)
             animalFactory.create(name.lowercase())
         } catch (e: Exception) {
             System.err.println("$name is not a animal")
@@ -65,7 +65,6 @@ fun printAnimals(animalNames: List<String>) {
 
 fun main(arguments: Array<String>)
  {
-        
     val animalsFile = parseArguments(arguments)
     val animalNames= parseFile(animalsFile)
     printAnimals(animalNames)
