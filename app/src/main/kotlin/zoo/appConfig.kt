@@ -7,7 +7,7 @@ object AppConfig {
 
     private val configPath: String =
         System.getenv("ANIMAL_PROPERTIES_PATH")
-            ?: "C:/Users/316/moriel/zoo_project_moriel/app/src/main/resources/animals.properties"
+            ?: "notC:/Users/316/moriel/zoo_project_moriel/app/src/main/resources/animals.properties"
 
     val properties: Properties = Properties().apply {
       FileInputStream(configPath).use { input ->
