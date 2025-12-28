@@ -17,8 +17,6 @@ override fun create(key: String): T {
 }
 
 
-
-
 private fun resolveClass(key: String): String =
     properties.getProperty(key)
     ?: throw IllegalArgumentException("No class found for key: $key")

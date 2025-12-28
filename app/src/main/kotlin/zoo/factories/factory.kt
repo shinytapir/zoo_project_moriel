@@ -1,5 +1,5 @@
 package factories
 
 interface Factory<T> {
-    fun create(type: String): T
+    fun create(key: String): T
 }
