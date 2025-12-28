@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug Kotlin Main",
+            "request": "launch",
+            "mainClass": "zoo.MainKt",
+            "projectName": "app",
+            "args": "-a C:/Users/316/Desktop/animals.txt",
+            "classPaths": [
+                "app/build/classes/kotlin/main"
+            ],
+            "preLaunchTask": "gradle: build"
+        }
+    ]
+}
+
