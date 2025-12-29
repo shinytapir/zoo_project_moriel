@@ -26,10 +26,8 @@ fun parseArguments(arguments: Array<String>): String {
 fun main(arguments: Array<String>) {
     val animalsFile = parseArguments(arguments)
     val animalNames = parseFile(animalsFile)
-
-    val animalFactory =
-        PropertiesFactory<Animal>(AppConfig.properties, Animal::class)
-
-    val listAnimals = createObjects(animalFactory, animalNames)
+    val animalFactory =PropertiesFactory<Animal>(AppConfig.properties, Animal::class)
+    val listAnimals = createObjects(animalFactory, animalNames) 
+    
     printAnimals(listAnimals)
 }

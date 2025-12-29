@@ -11,10 +11,10 @@ fun printAnimals(animals: Map<String, Animal?>) {
     println("-----   -----")
 
     animals.forEach { (key, animal) ->
-        animal?.let {
-            it.printYourName()
+        animal?.let {animal ->
+            animal.printYourName()
             print("    ")
-            it.printYourSound()
+            animal.printYourSound()
             println()
         } ?: println("$key is not a valid animal")
     }
