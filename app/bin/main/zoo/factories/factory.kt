@@ -31,16 +31,6 @@ abstract class Factory<T : Any>(
     }
 
     /**
-     * Overload create function - creates a list of instances for the given list of keys.
-     *
-     * @param keys A list of string keys representing object types.
-     * @return A list of instances of type T.
-     */
-    fun create(keys: List<String>): List<T> {
-        return keys.map { key -> create(key) }
-    }
-
-    /**
      * Instantiates a class given its fully qualified name using reflection.
      *
      * @param className The fully qualified class name.
@@ -48,11 +38,12 @@ abstract class Factory<T : Any>(
      * @throws RuntimeException if instantiation fails.
      */
     private fun instantiateClass(className: String): Any {
-        return try {
-            Class.forName(className)
+        try {
+            return Class.forName(className)
                 .getDeclaredConstructor()
                 .newInstance()
-        } catch (e: Exception) {
+        } 
+        catch (e: Exception) {
             throw RuntimeException("Failed to create instance of $className", e)
         }
     }
@@ -68,7 +59,8 @@ abstract class Factory<T : Any>(
     private fun validateType(key: String, instance: Any): T {
         if (expectedType.isInstance(instance)) {
             return expectedType.cast(instance)
-        } else {
+        } 
+        else {
             throw IllegalArgumentException(
                 "$key is not of expected type. Expected: $expectedType, got: ${instance::class}"
             )

@@ -13,8 +13,15 @@ fun main(arguments: Array<String>) {
         Animal::class
     )
 
-    val animalsList = createAnimalsListOrNull(animalNames, animalFactory) ?: return
-    printAnimals(animalsList)
+    
+    try {
+        val animals: List<Animal>  = animalNames.map { animalName -> animalFactory.create(animalName)}
+        printAnimals(animals)
+    } 
+    catch (e: Exception) {
+        println("Error creating animals: ${e.message}")
+        return
+    }
 
 }
 
@@ -36,19 +43,6 @@ fun parseArguments(arguments: Array<String>): String {
     parser.parse(arguments)
     return animalsFilePath
 }
-
-fun createAnimalsListOrNull(
-    keys: List<String>,
-    factory: PropertiesFactory<Animal>
-): List<Animal>? {
-    return try {
-        factory.create(keys)
-    } catch (e: Exception) {
-        println("Error creating animals: ${e.message}")
-        null
-    }
-}
-
 
 /**
  * Prints a list of animals and their sounds in a formatted table.

@@ -22,8 +22,9 @@ class PropertiesFactory<T : Any>(
      * @return The fully qualified class name corresponding to the key.
      * @throws IllegalArgumentException If no class is found for the given key.
      */
-    override fun getClassNameForKey(key: String): String =
-        properties.getProperty(key)
+    override fun getClassNameForKey(key: String): String {
+        return properties.getProperty(key)
             ?: throw IllegalArgumentException("No class found for key: $key")
+    }   
 }
 
