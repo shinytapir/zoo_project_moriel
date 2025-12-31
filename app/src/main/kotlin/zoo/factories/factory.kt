@@ -7,20 +7,47 @@ abstract class Factory<T : Any>(
     protected val expectedType: KClass<T>
 ) {
 
-    protected abstract fun getClassForKey(key: String): String
+    /**
+     * Maps a key to the fully qualified class name of the object to be created.
+     *
+     * @param key A string key representing the object type.
+     * @return The fully qualified class name corresponding to the key.
+     */
+    protected abstract fun getClassNameForKey(key: String): String
 
-    // Template method
+    /**
+     * template method for creating an instance of the class corresponding to the given key.
+     *  mapping the key to the right class is an abstract step 
+     *
+     * @param key A string key representing the object type.
+     * @return An instance of type T.
+     * @throws RuntimeException if the class cannot be instantiated.
+     * @throws IllegalArgumentException if the created object is not of the expected type.
+     */
     fun create(key: String): T {
-        val className = getClassForKey(key)
-        val result = createObject(className)
-        return validate(key, result)
+        val className = getClassNameForKey(key)
+        val instance = instantiateClass(className)
+        return validateType(key, instance)
     }
-    //overload for list 
-        fun create(keys: List<String>): List<T> {
+
+    /**
+     * Overload create function - creates a list of instances for the given list of keys.
+     *
+     * @param keys A list of string keys representing object types.
+     * @return A list of instances of type T.
+     */
+    fun create(keys: List<String>): List<T> {
         return keys.map { key -> create(key) }
     }
 
-    private fun createObject(className: String): Any {
+    /**
+     * Instantiates a class given its fully qualified name using reflection.
+     *
+     * @param className The fully qualified class name.
+     * @return The created object as Any.
+     * @throws RuntimeException if instantiation fails.
+     */
+    private fun instantiateClass(className: String): Any {
         return try {
             Class.forName(className)
                 .getDeclaredConstructor()
@@ -30,12 +57,20 @@ abstract class Factory<T : Any>(
         }
     }
 
-    private fun validate(key: String, result: Any): T {
-        if (expectedType.isInstance(result)) {
-            return expectedType.cast(result)
+    /**
+     * Validates that the created object is of the expected type T.
+     *
+     * @param key The key used to create the object.
+     * @param instance The created object.
+     * @return The object cast to type T if validation passes.
+     * @throws IllegalArgumentException if the object is not of type T.
+     */
+    private fun validateType(key: String, instance: Any): T {
+        if (expectedType.isInstance(instance)) {
+            return expectedType.cast(instance)
         } else {
             throw IllegalArgumentException(
-                "$key is not of expected type. $expectedType expected but got ${result::class}"
+                "$key is not of expected type. Expected: $expectedType, got: ${instance::class}"
             )
         }
     }

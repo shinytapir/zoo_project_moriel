@@ -4,54 +4,65 @@ import zoo.Animal
 import config.AppConfig
 import handlers.*
 
-
 fun main(arguments: Array<String>) {
-    val animalsFile = parseArguments(arguments)
-    val animalNames = splitFile(animalsFile)
+    val animalsFilePath = parseArguments(arguments)
+    val animalNames = splitFile(animalsFilePath)
+
     val animalFactory = PropertiesFactory<Animal>(
         AppConfig.properties,
         Animal::class
     )
 
-    val animalsList: List<Animal> 
-    try {
-        animalsList = animalFactory.create(animalNames)
-    } catch (e: Exception) {
-        println("Error creating animals: ${e.message}")
-        return
-    }
+    val animalsList = createAnimalsListOrNull(animalNames, animalFactory) ?: return
+    printAnimals(animalsList)
 
-    printAnimals(animalsList)   
 }
 
-
-
-//input
+/**
+ * Parses command-line arguments to get the path to the animals file.
+ *
+ * @param arguments The array of command-line arguments.
+ * @return The path to the animals file as a [String].
+ */
 fun parseArguments(arguments: Array<String>): String {
     val parser = ArgParser("animals")
 
-    val animalsFile by parser.option(
+    val animalsFilePath by parser.option(
         ArgType.String,
         shortName = "a",
-        description = "Animals file"
+        description = "Path to the animals file"
     ).required()
 
     parser.parse(arguments)
-    return animalsFile
+    return animalsFilePath
 }
 
-//output
+fun createAnimalsListOrNull(
+    keys: List<String>,
+    factory: PropertiesFactory<Animal>
+): List<Animal>? {
+    return try {
+        factory.create(keys)
+    } catch (e: Exception) {
+        println("Error creating animals: ${e.message}")
+        null
+    }
+}
+
+
+/**
+ * Prints a list of animals and their sounds in a formatted table.
+ *
+ * @param animals A list of [Animal] objects to print.
+ */
 fun printAnimals(animals: List<Animal>) {
     println("Animal  Sound")
     println("-----   -----")
 
     animals.forEach { animal ->
-        animal?.let {
-            animal.printYourName()
-            print("    ")
-            animal.printYourSound()
-            println()
-        }
+        animal.printYourName()
+        print("    ")
+        animal.printYourSound()
+        println()
     }
 }
-
