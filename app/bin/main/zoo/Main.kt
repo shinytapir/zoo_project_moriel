@@ -2,12 +2,31 @@ import kotlinx.cli.*
 import factories.PropertiesFactory
 import zoo.Animal
 import config.AppConfig
-import app.*
+import handlers.*
 
 
-/**
- * Parses command-line arguments and extracts the animals file path.
- */
+fun main(arguments: Array<String>) {
+    val animalsFile = parseArguments(arguments)
+    val animalNames = splitFile(animalsFile)
+    val animalFactory = PropertiesFactory<Animal>(
+        AppConfig.properties,
+        Animal::class
+    )
+
+    val animalsList: List<Animal> 
+    try {
+        animalsList = animalFactory.create(animalNames)
+    } catch (e: Exception) {
+        println("Error creating animals: ${e.message}")
+        return
+    }
+
+    printAnimals(animalsList)   
+}
+
+
+
+//input
 fun parseArguments(arguments: Array<String>): String {
     val parser = ArgParser("animals")
 
@@ -21,13 +40,18 @@ fun parseArguments(arguments: Array<String>): String {
     return animalsFile
 }
 
+//output
+fun printAnimals(animals: List<Animal>) {
+    println("Animal  Sound")
+    println("-----   -----")
 
-
-fun main(arguments: Array<String>) {
-    val animalsFile = parseArguments(arguments)
-    val animalNames = parseFile(animalsFile)
-    val animalFactory =PropertiesFactory<Animal>(AppConfig.properties, Animal::class)
-    val listAnimals = createObjects(animalFactory, animalNames) 
-    
-    printAnimals(listAnimals)
+    animals.forEach { animal ->
+        animal?.let {
+            animal.printYourName()
+            print("    ")
+            animal.printYourSound()
+            println()
+        }
+    }
 }
+
