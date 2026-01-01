@@ -2,6 +2,8 @@ package factories
 
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 abstract class Factory<T : Any>(
     protected val expectedType: KClass<T>
@@ -14,6 +16,7 @@ abstract class Factory<T : Any>(
      * @return The fully qualified class name corresponding to the key.
      */
     protected abstract fun getClassNameForKey(key: String): String
+    protected val logger = LoggerFactory.getLogger(Factory::class.java)
 
     /**
      * template method for creating an instance of the class corresponding to the given key.
@@ -25,6 +28,7 @@ abstract class Factory<T : Any>(
      * @throws IllegalArgumentException if the created object is not of the expected type.
      */
     fun create(key: String): T {
+        logger.debug("factory creating instance for key: $key")
         val className = getClassNameForKey(key)
         val instance = instantiateClass(className)
         return validateType(key, instance)
@@ -44,7 +48,7 @@ abstract class Factory<T : Any>(
                 .newInstance()
         } 
         catch (e: Exception) {
-            throw RuntimeException("Failed to create instance of $className", e)
+            throw RuntimeException("factory failed - Failed to create instance of $className", e)
         }
     }
 
@@ -58,11 +62,12 @@ abstract class Factory<T : Any>(
      */
     private fun validateType(key: String, instance: Any): T {
         if (expectedType.isInstance(instance)) {
+            logger.info("factory successfully created instance of $expectedType for key: $key")
             return expectedType.cast(instance)
         } 
         else {
             throw IllegalArgumentException(
-                "$key is not of expected type. Expected: $expectedType, got: ${instance::class}"
+                "factory failed - $key is not of expected type. Expected: $expectedType, got: ${instance::class}"
             )
         }
     }

@@ -2,6 +2,8 @@ package factories
 
 import java.util.Properties
 import kotlin.reflect.KClass
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * A factory that creates instances of classes based on keys stored in a [Properties] object.
@@ -23,7 +25,9 @@ class PropertiesFactory<T : Any>(
      * @throws IllegalArgumentException If no class is found for the given key.
      */
     override fun getClassNameForKey(key: String): String {
-        return properties.getProperty(key)
+        val className = properties.getProperty(key)
+        logger.debug("Mapping key: $key to class name: $className")
+        return className
             ?: throw IllegalArgumentException("No class found for key: $key")
     }   
 }

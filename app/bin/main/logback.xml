@@ -4,7 +4,7 @@
         <file>zoo.log</file>
         <append>true</append> 
         <encoder>
-            <pattern>%d [%thread] %-5level %logger - %msg%n</pattern>
+            <pattern>%d %-5level %logger - %msg%n</pattern>
         </encoder>
     </appender>
 

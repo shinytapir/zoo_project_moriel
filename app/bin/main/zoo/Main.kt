@@ -7,24 +7,25 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 fun main(arguments: Array<String>) {
-    val logger: Logger = LoggerFactory.getLogger("MainLogger") 
-    logger.info("started running main")
+    val logger: Logger = LoggerFactory.getLogger("main")
+    logger.debug("started running")
     val animalsFilePath = parseArguments(arguments)
+    logger.debug("working with animals file path: $animalsFilePath")
     val animalNames = splitFile(animalsFilePath)
-
     val animalFactory = PropertiesFactory<Animal>(
         AppConfig.properties,
         Animal::class
     )
-
+    logger.info("Properties configuration loaded")
     
     try {
         val animals: List<Animal>  = animalNames.map { animalName -> animalFactory.create(animalName)}
+        logger.info("Successfully created ${animals.size} animals")
         printAnimals(animals)
     } 
     catch (e: Exception) {
         println("Error creating animals: ${e.message}")
-        logger.info("error creating animals: ${e.message}")
+        logger.error("error creating animals: ${e}")
         return
     }
 
