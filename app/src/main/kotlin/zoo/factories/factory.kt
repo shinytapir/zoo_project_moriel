@@ -5,6 +5,8 @@ import kotlin.reflect.cast
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+val logger = LoggerFactory.getLogger(Factory::class.java)
+
 abstract class Factory<T : Any>(
     protected val expectedType: KClass<T>
 ) {
@@ -16,7 +18,6 @@ abstract class Factory<T : Any>(
      * @return The fully qualified class name corresponding to the key.
      */
     protected abstract fun getClassNameForKey(key: String): String
-    protected val logger = LoggerFactory.getLogger(Factory::class.java)
 
     /**
      * template method for creating an instance of the class corresponding to the given key.

@@ -8,6 +8,14 @@
         </encoder>
     </appender>
 
+    <logger name="main" level="debug" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="factory" level="debug" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+
     <root level="debug">
         <appender-ref ref="FILE" /> 
     </root>

@@ -1,31 +1,28 @@
-2026-01-01 15:46:09,074 DEBUG main - started running
-2026-01-01 15:46:09,121 DEBUG main - working with animals file path: C:/Users/316/Desktop/animals.txt
-2026-01-01 15:46:09,141 INFO  main - Properties configuration loaded
-2026-01-01 15:46:09,141 DEBUG factories.Factory - factory creating instance for key: dog
-2026-01-01 15:46:09,141 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
-2026-01-01 15:46:09,142 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
-2026-01-01 15:46:09,142 DEBUG factories.Factory - factory creating instance for key: cat
-2026-01-01 15:46:09,142 DEBUG factories.Factory - Mapping key: cat to class name: zoo.Cat
-2026-01-01 15:46:09,151 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: cat
-2026-01-01 15:46:09,152 DEBUG factories.Factory - factory creating instance for key: mazda
-2026-01-01 15:46:09,152 DEBUG factories.Factory - Mapping key: mazda to class name: zoo.Mazda
-2026-01-01 15:46:09,153 ERROR main - error creating animals: java.lang.IllegalArgumentException: factory failed - mazda is not of expected type. Expected: class zoo.Animal (Kotlin reflection is not available), got: class zoo.Mazda (Kotlin reflection is not available)
-2026-01-01 15:46:23,910 DEBUG main - started running
-2026-01-01 15:46:23,959 DEBUG main - working with animals file path: C:/Users/316/Desktop/animals.txt
-2026-01-01 15:46:23,984 INFO  main - Properties configuration loaded
-2026-01-01 15:46:23,985 DEBUG factories.Factory - factory creating instance for key: dog
-2026-01-01 15:46:23,985 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
-2026-01-01 15:46:23,986 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
-2026-01-01 15:46:23,987 DEBUG factories.Factory - factory creating instance for key: cat
-2026-01-01 15:46:23,987 DEBUG factories.Factory - Mapping key: cat to class name: zoo.Cat
-2026-01-01 15:46:23,988 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: cat
-2026-01-01 15:46:23,988 DEBUG factories.Factory - factory creating instance for key: chumi
-2026-01-01 15:46:23,988 DEBUG factories.Factory - Mapping key: chumi to class name: zoo.Dog
-2026-01-01 15:46:23,988 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: chumi
-2026-01-01 15:46:23,988 DEBUG factories.Factory - factory creating instance for key: duck
-2026-01-01 15:46:23,988 DEBUG factories.Factory - Mapping key: duck to class name: zoo.Duck
-2026-01-01 15:46:23,989 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: duck
-2026-01-01 15:46:23,989 DEBUG factories.Factory - factory creating instance for key: dog
-2026-01-01 15:46:23,989 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
-2026-01-01 15:46:23,989 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
-2026-01-01 15:46:23,992 INFO  main - Successfully created 5 animals
+2026-01-01 16:37:35,125 DEBUG main - started running
+2026-01-01 16:37:35,170 DEBUG main - working with animals file path: C:/Users/316/Desktop/animals.txt
+2026-01-01 16:37:35,190 INFO  main - Properties configuration loaded
+2026-01-01 16:37:35,192 DEBUG factories.Factory - factory creating instance for key: dog
+2026-01-01 16:37:35,192 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
+2026-01-01 16:37:35,193 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
+2026-01-01 16:37:35,194 DEBUG factories.Factory - factory creating instance for key: catuuu
+2026-01-01 16:37:35,194 DEBUG factories.Factory - Mapping key: catuuu to class name: null
+2026-01-01 16:37:35,203 ERROR main - error creating animals: java.lang.IllegalArgumentException: No class found for key: catuuu
+2026-01-01 16:37:53,259 DEBUG main - started running
+2026-01-01 16:37:53,310 DEBUG main - working with animals file path: C:/Users/316/Desktop/animals.txt
+2026-01-01 16:37:53,333 INFO  main - Properties configuration loaded
+2026-01-01 16:37:53,335 DEBUG factories.Factory - factory creating instance for key: dog
+2026-01-01 16:37:53,336 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
+2026-01-01 16:37:53,337 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
+2026-01-01 16:37:53,338 DEBUG factories.Factory - factory creating instance for key: cat
+2026-01-01 16:37:53,338 DEBUG factories.Factory - Mapping key: cat to class name: zoo.Cat
+2026-01-01 16:37:53,338 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: cat
+2026-01-01 16:37:53,338 DEBUG factories.Factory - factory creating instance for key: chumi
+2026-01-01 16:37:53,338 DEBUG factories.Factory - Mapping key: chumi to class name: zoo.Dog
+2026-01-01 16:37:53,338 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: chumi
+2026-01-01 16:37:53,339 DEBUG factories.Factory - factory creating instance for key: duck
+2026-01-01 16:37:53,339 DEBUG factories.Factory - Mapping key: duck to class name: zoo.Duck
+2026-01-01 16:37:53,339 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: duck
+2026-01-01 16:37:53,339 DEBUG factories.Factory - factory creating instance for key: dog
+2026-01-01 16:37:53,339 DEBUG factories.Factory - Mapping key: dog to class name: zoo.Dog
+2026-01-01 16:37:53,339 INFO  factories.Factory - factory successfully created instance of class zoo.Animal (Kotlin reflection is not available) for key: dog
+2026-01-01 16:37:53,341 INFO  main - Successfully created 5 animals

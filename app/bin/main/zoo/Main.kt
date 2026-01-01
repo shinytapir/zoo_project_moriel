@@ -6,18 +6,22 @@ import handlers.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+val logger: Logger = LoggerFactory.getLogger("main")
+
 fun main(arguments: Array<String>) {
-    val logger: Logger = LoggerFactory.getLogger("main")
+    
     logger.debug("started running")
+
     val animalsFilePath = parseArguments(arguments)
     logger.debug("working with animals file path: $animalsFilePath")
+
     val animalNames = splitFile(animalsFilePath)
     val animalFactory = PropertiesFactory<Animal>(
         AppConfig.properties,
         Animal::class
     )
     logger.info("Properties configuration loaded")
-    
+
     try {
         val animals: List<Animal>  = animalNames.map { animalName -> animalFactory.create(animalName)}
         logger.info("Successfully created ${animals.size} animals")
