@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.guava)
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
     implementation("com.jakewharton.picnic:picnic:0.5.0")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
 
 
 

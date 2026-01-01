@@ -3,8 +3,12 @@ import factories.PropertiesFactory
 import zoo.Animal
 import config.AppConfig
 import handlers.*
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 fun main(arguments: Array<String>) {
+    val logger: Logger = LoggerFactory.getLogger("MainLogger") 
+    logger.info("started running main")
     val animalsFilePath = parseArguments(arguments)
     val animalNames = splitFile(animalsFilePath)
 
@@ -20,6 +24,7 @@ fun main(arguments: Array<String>) {
     } 
     catch (e: Exception) {
         println("Error creating animals: ${e.message}")
+        logger.info("error creating animals: ${e.message}")
         return
     }
 
